@@ -1,35 +1,28 @@
 name: Build Android APK
-
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
-
-jobs:
+iobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
-
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@4
       with:
         python-version: '3.10'
-
     - name: Install dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y ccache git libffi-dev libssl-dev python3-dev zip unzip openjdk-17-jdk
         pip install --upgrade pip
         pip install buildozer cython kivy
-
     - name: Build with Buildozer
       run: |
         yes | buildozer -v android debug
-
     - name: Upload APK Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@3
       with:
         name: app-release
         path: bin/*.apk
