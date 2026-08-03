@@ -19,16 +19,17 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install buildozer kivy
+        sudo apt-get update
+        sudo apt-get install -y ccache git libffi-dev libssl-dev python3-dev zip unzip openjdk-17-jdk
+        pip install --upgrade pip
+        pip install buildozer cython kivy
 
     - name: Build with Buildozer
       run: |
-        yes | buildozer android debug
+        yes | buildozer -v android debug
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v3
       with:
         name: app-release
         path: bin/*.apk
-
