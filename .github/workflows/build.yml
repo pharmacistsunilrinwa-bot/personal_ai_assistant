@@ -1,28 +1,40 @@
 name: Build Android APK
+
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
-iobs:
+
+jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@4
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
       with:
-        python-version: '3.10'
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y ccache git libffi-dev libssl-dev python3-dev zip unzip openjdk-17-jdk
-        pip install --upgrade pip
-        pip install buildozer cython kivy
-    - name: Build with Buildozer
-      run: |
-        yes | buildozer -v android debug
+        distribution: 'zulu'
+        java-version: '17'
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable'
+        cache: true
+
+    - name: Get dependencies
+      run: flutter pub get
+      working-directory: frontend
+
+    - name: Build APK
+      run: flutter build apk --release
+      working-directory: frontend
+
     - name: Upload APK Artifact
-      uses: actions/upload-artifact@3
+      uses: actions/upload-artifact@v4
       with:
         name: app-release
-        path: bin/*.apk
+        path: frontend/build/app/outputs/flutter-apk/app-release.apk

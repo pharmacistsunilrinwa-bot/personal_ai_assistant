@@ -1,8 +1,0 @@
-{
-  "name": "personal_ai_assistant",
-  "version": "1.0.0",
-  "description": "Personal AI Assistant Mobile Environment",
-  "scripts": {
-    "build": "bash BUILD_APK.sh"
-  }
-}

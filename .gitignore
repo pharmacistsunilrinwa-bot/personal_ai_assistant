@@ -1,5 +1,31 @@
+# General
 bin/
 .buildozer/
+*.keystore
+
+# Python
 __pycache__/
 *.pyc
-*.keystore
+.venv/
+venv/
+ENV/
+env/
+backend/__pycache__/
+backend/.venv/
+backend/venv/
+backend/env/
+
+# Flutter/Dart
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+frontend/build/
+frontend/.dart_tool/
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+frontend/.packages
+frontend/android/local.properties
+frontend/ios/Flutter/Generated.xcconfig
+frontend/ios/Flutter/flutter_export_environment.sh
